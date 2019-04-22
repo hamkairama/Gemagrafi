@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Persada.Fr.Model.GEMA_TM_USER> 
+@using Persada.Fr.CommonFunction
+
+@{
+    ViewBag.Title = "Index News";
+    ViewBag.ActiveNews = "open active";
+    ViewBag.SelectedNews = "selected";
+    ViewBag.BreadcrumbMenu = "News > ";
+    ViewBag.BreadcrumbSubMenu = "Index > ";
+}
+
+<link href="~/Content/Metronics/global/plugins/scripts/jquery.notific8.min.css" rel="stylesheet" />
+<link href="~/Content/Metronics/global/plugins/scripts/toastr.min.css" rel="stylesheet" />
+
+@if (ViewBag.msgSuccess != null)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" type="button" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </a>
+
+        <strong>
+            <i class="ace-icon fa fa-check"></i>
+        </strong>
+        @ViewBag.msgSuccess
+        <br>
+    </div>
+}
+
+@if (ViewBag.msgError != null)
+{
+    <div class="alert alert-danger">
+        <a href="#" class="close" type="button" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </a>
+        <strong>
+            <i class="ace-icon fa fa-times"></i>
+        </strong>
+        @ViewBag.msgError
+        <br>
+    </div>
+} 
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- BEGIN Portlet PORTLET-->
+        <div class="portlet box yellow">
+            <div class="portlet-title">
+                <div class="caption">
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title=""><i class="icon-drop"></i></a>
+                    <a href="javascript:;" data-error-display="notific8" data-url="error" class="reload" data-original-title="" title=""><i class="icon-cloud-upload"></i></a>
+                    <a href="javascript:;" class="" data-original-title="" title=""> <i class="icon-size-fullscreen"></i> </a>
+                    <a href="javascript:;" class="remove" data-original-title="" title=""> <i class="icon-trash"></i></a>
+                </div>
+            </div>
+            <div class="portlet-body portlet-empty"> Try to reload the content to see how the error message is displayed. </div>
+        </div>
+        <!-- END Portlet PORTLET-->
+    </div>
+    <div class="col-md-6">
+        <!-- BEGIN Portlet PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption">
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title=""><i class="icon-drop"></i></a>
+                    <a href="javascript:;" data-error-display="toastr" data-url="error" class="reload" data-original-title="" title=""><i class="icon-cloud-upload"></i></a>
+                    <a href="javascript:;" class="" data-original-title="" title=""> <i class="icon-size-fullscreen"></i> </a>
+                    <a href="javascript:;" class="remove" data-original-title="" title=""> <i class="icon-trash"></i></a>
+                </div>
+            </div>
+            <div class="portlet-body portlet-empty"> Try to reload the content to see how the error message is displayed. </div>
+        </div>
+        <!-- END Portlet PORTLET-->
+    </div>
+</div>
+
+
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+        </div>
+        <div class="actions">
+            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-cloud-upload"></i>
+            </a>
+            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-wrench"></i>
+            </a>
+            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="note note-info">
+            <p> Extend Bootstrap's grid system with the thumbnail component to easily display grids of images, videos, text, and more. </p>
+        </div>
+        <h4 class="block">Default</h4>
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <a href="javascript:;" class="thumbnail">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiPjxyZWN0IHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0NCIgeT0iOTAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj44OHgxODA8L3RleHQ+PC9zdmc+" alt="100%x180" style="height: 180px; width: 100%; display: block;" data-src="../assets/global/plugins/holder.js/100%x180">
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="javascript:;" class="thumbnail">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiPjxyZWN0IHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0NCIgeT0iOTAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj44OHgxODA8L3RleHQ+PC9zdmc+" alt="100%x180" style="height: 180px; width: 100%; display: block;" data-src="../assets/global/plugins/holder.js/100%x180">
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="javascript:;" class="thumbnail">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiPjxyZWN0IHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0NCIgeT0iOTAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj44OHgxODA8L3RleHQ+PC9zdmc+" alt="100%x180" style="height: 180px; width: 100%; display: block;" data-src="../assets/global/plugins/holder.js/100%x180">
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="javascript:;" class="thumbnail">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiPjxyZWN0IHdpZHRoPSI4OCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0NCIgeT0iOTAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj44OHgxODA8L3RleHQ+PC9zdmc+" alt="100%x180" style="height: 180px; width: 100%; display: block;" data-src="../assets/global/plugins/holder.js/100%x180">
+                </a>
+            </div>
+        </div>
+        <h4 class="block">Custom Content</h4>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="thumbnail" >
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMTUiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjE1IiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwNy41IiB5PSIxMDAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTNweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4yMTV4MjAwPC90ZXh0Pjwvc3ZnPg==" alt="100%x200" style="width: 100%; height: 200px; display: block;" data-src="../assets/global/plugins/holder.js/100%x200">
+                    <div class="" style="padding:9px;color:#333">
+                        <h3>Thumbnail label</h3>
+                        <p> Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. </p>
+                        <p>
+                            <a href="javascript:;" class="btn blue"> Button </a>
+                            <a href="javascript:;" class="btn default"> Button </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="thumbnail">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMTUiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjE1IiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwNy41IiB5PSIxMDAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTNweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4yMTV4MjAwPC90ZXh0Pjwvc3ZnPg==" alt="100%x200" style="width: 100%; height: 200px; display: block;" data-src="../assets/global/plugins/holder.js/100%x200">
+                    <div style="padding:9px;color:#333">
+                        <h3>Thumbnail label</h3>
+                        <p> Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. </p>
+                        <p>
+                            <a href="javascript:;" class="btn red"> Button </a>
+                            <a href="javascript:;" class="btn default"> Button </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Content/Metronics/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/Metronics/global/plugins/jquery.blockui.min.js"></script>
+<script src="~/Content/Metronics/global/plugins/scripts/jquery.notific8.min.js"></script>
+<script src="~/Content/Metronics/global/plugins/scripts/toastr.min.js"></script>
+<script src="~/Content/Metronics/global/plugins/scripts/app.min.js"></script>*@

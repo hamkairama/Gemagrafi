@@ -1,0 +1,123 @@
+﻿@model Persada.Fr.Model.GEMA_TR_BOOKING
+@using Persada.Fr.CommonFunction
+
+@{
+    ViewBag.Title = "Detail Booking";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            @{
+                int value = Model.STATUS;
+                EnumList.BookingStatus bookingStatus = (EnumList.BookingStatus)value;
+                string status = bookingStatus.ToString();
+
+
+                <h4 class="modal-title">@Model.TR_NUMBER - @status</h4>
+            }
+        </div>
+        <div class="modal-body">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Name
+                    </dt>
+
+                    <dd>
+                        @Model.GEMA_TM_USER.USER_NAME
+                    </dd>
+                    <dt>
+                        Email
+                    </dt>
+
+                    <dd>
+                        @Model.GEMA_TM_USER.USER_MAIL
+                    </dd>
+                    <dt>
+                        Booking Type
+                    </dt>
+
+                    <dd>
+                        @Model.GEMA_TR_BOOKING_DETAIL.FirstOrDefault().GEMA_TM_PRICEL_LIST.TYPE
+                    </dd>
+                    <dt>
+                        Payment Type
+                    </dt>
+
+                    <dd>
+                        @Model.PAYMENT_TYPE
+                    </dd>
+                    <dt>
+                        Total
+                    </dt>
+
+                    <dd>
+                        @Model.TOTAL_PAYMENT
+                    </dd>
+                    <dt>
+                        Discount
+                    </dt>
+
+                    <dd>
+                        @Model.DISCOUNT
+                    </dd>
+                    <dt>
+                        Grand Total
+                    </dt>
+
+                    <dd>
+                        @Model.GRAND_TOTAL_PAYMENT
+                    </dd>
+                </dl>
+            </div>
+
+
+            <div>
+                @if (Model.STATUS == (int)EnumList.BookingStatus.Submitted)
+                {
+                    <p>Please completing payment before <b>@Model.CREATED_TIME.AddHours(6)</b> to our account with :</p>
+                    <table>
+                        <tr>
+                            <td>BCA</td>
+                            <td>:</td>
+                            <td style="font-weight:bold;color:cornflowerblue">123456</td>
+                        </tr>
+                        <tr>
+                            <td>BRI</td>
+                            <td>:</td>
+                            <td style="font-weight:bold;color:cornflowerblue">123456</td>
+                        </tr>
+                    </table>
+                    <p>If you have completed this transaction, please upload your print. And call my administrator.</p>
+                    <p><i><b>This Booking will be lost if you do not complete this payment.</b></i></p>
+                }
+                else if (Model.STATUS == (int)EnumList.BookingStatus.Completed)
+                {
+                    <p>Historical Payment</p>
+                    <table>
+                        <tr>
+                            <td>Payment Paid Date</td>
+                            <td>:</td>
+                            <td style="font-weight:bold;color:cornflowerblue">@Model.RECEIVE_PAYMENT_TIME</td>
+                        </tr>
+                        <tr>
+                            <td>Payment Completed Date</td>
+                            <td>:</td>
+                            <td style="font-weight:bold;color:cornflowerblue">@Model.COMPLETE_PAYMENT_TIME</td>
+                        </tr>
+                    </table>
+                    <p><i><b>Thanks for your dedicated to trust our studio for to be part of you</b></i></p>
+                }
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+

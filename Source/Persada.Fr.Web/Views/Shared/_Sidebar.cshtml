@@ -1,0 +1,209 @@
+﻿@using Persada.Fr.CommonFunction;
+
+<div class="page-sidebar-wrapper">
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+            <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+
+            <li class="sidebar-toggler-wrapper">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                @*<div class="sidebar-toggler">
+                    </div>*@
+                <!-- END SIDEBAR TOGGLER BUTTON -->
+
+            </li>
+            <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+
+            <li class="sidebar-search-wrapper hidden-xs">
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+                <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+                <div class="sidebar-search">
+                    <a href="#" class="remove">
+                        <i class="icon-close"></i>
+                    </a>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <a href="#" class="btn submit" onclick="ModalShow()"><i class="icon-magnifier"></i></a>
+                        </span>
+
+                    </div>
+
+                    <script>
+                        function ModalShow() {
+                            var data = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Oops</h4></div><div class='modal-body'><div class='row' style='text-align:center'><p>Sistem can't found you want. Please call admin<p></div></div><div class='modal-footer'></div></div></div>";
+                            $('#myModal').html(data);
+                            $('#myModal').modal();
+                        }
+                    </script>
+
+                </div>
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+
+            </li>
+
+            <li class="@ViewBag.ActiveHome">
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="icon-home"></i>
+                    <span class="title">Home</span>
+                    <span class="@ViewBag.SelectedHome"></span>
+                </a>
+            </li>
+
+            <li class="@ViewBag.ActiveAbout">
+                <a onclick="Modal('/Home/About/','','#myModal')" href="#">
+                    <i class="icon-info"></i>
+                    <span class="title">About</span>
+                    <span class="@ViewBag.SelectedAbout"></span>
+                </a>
+            </li>
+
+            <li class="@ViewBag.ActiveContactUs">
+                <a onclick="Modal('/Home/ContactUs/', '', '#myModal')" href="#">
+                    <i class="icon-call-end"></i>
+                    <span class="title">Contact Us</span>
+                    <span class="@ViewBag.SelectedContactUs"></span>
+                </a>
+            </li>
+
+            <li class="@ViewBag.ActivePriceListUser">
+                <a href="@Url.Action("Single", "PriceList")">
+                    <i class="icon-tag"></i>
+                    <span class="title">Pricelist</span>
+                    <span class="@ViewBag.SelectedPriceListUser"></span>
+                </a>
+            </li>
+
+            <li class="@ViewBag.ActiveCalender">
+                <a href="@Url.Action("Calender", "PriceList")">
+                    <i class="icon-calendar"></i>
+                    <span class="title">Calender</span>
+                    <span class="@ViewBag.SelectedCalender"></span>
+                </a>
+            </li>
+
+            <li class="@ViewBag.ActiveNews">
+                <a href="@Url.Action("Index", "News")">
+                    <i class="icon-diamond"></i>
+                    <span class="title">News</span>
+                    <span class="@ViewBag.SelectedNews"></span>
+                </a>
+            </li>
+
+            @*<li class="@ViewBag.ActiveNews">
+                <a href="#" onclick="ModalUnderMaintaince()">
+                    <i class="icon-diamond"></i>
+                    <span class="title">News</span>
+                    <span class="@ViewBag.SelectedNews"></span>
+                </a>
+            </li>*@
+
+            @if (CurrentUser.IsSa())
+            {
+                <li class="@ViewBag.ActiveSetupCategory">
+                    <a href="javascript:;">
+                        <i class="icon-star"></i>
+                        <span class="title">Category Setup</span>
+                        <span class="arrow @ViewBag.ArrowOpenSetupCategory"></span>
+                        <span class="@ViewBag.SelectedSetupCategory"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="@ViewBag.ActiveCategory">
+                            <a href="@Url.Action("Index", "Category")">
+                                <i class="icon-home"></i>
+                                Category
+                            </a>
+                        </li>
+
+                        <li class="@ViewBag.ActiveSubCategory">
+                            <a href="@Url.Action("Index", "SubCategory")">
+                                <i class="icon-basket"></i>
+                                SubCategory
+                            </a>
+
+                        </li>
+
+                        <li class="@ViewBag.ActivePriceList">
+                            <a href="@Url.Action("Index", "PriceList")">
+                                <i class="icon-tag"></i>
+                                PriceList
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="@ViewBag.ActiveMenuSetup">
+                    <a href="javascript:;">
+                        <i class="icon-rocket"></i>
+                        <span class="title">Menu Setup</span>
+                        <span class="arrow @ViewBag.ArrowOpenSetup"></span>
+                        <span class="@ViewBag.SelectedMenuSetup"></span>
+
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="@ViewBag.ActiveUser">
+                            <a href="@Url.Action("Index", "User")">
+                                <i class="icon-home"></i>
+                                User
+                            </a>
+                        </li>
+
+                        <li class="@ViewBag.ActiveSlideShow">
+                            <a href="@Url.Action("Index", "Slideshow")">
+                                <i class="icon-tag"></i>
+                                Slideshow
+                            </a>
+                        </li>
+
+                        <li class="@ViewBag.ActiveSosmed">
+                            <a href="@Url.Action("Index", "Sosmed")">
+                                <i class="icon-basket"></i>
+                                Sosmed
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="@ViewBag.ActiveAllBooking ">
+                    <a href="@Url.Action("GetAllBooking", "Booking")">
+                        <i class="icon-layers"></i>
+                        <span class="title">All Booking</span>
+                    </a>
+                </li>
+            }
+
+            @if (CurrentUser.GetCurrentUserIdId() > 0)
+            {
+                <li class="@ViewBag.ActiveMyBooking ">
+                    <a href="@Url.Action("GetMyBooking", "Booking", new { userIdId = CurrentUser.GetCurrentUserIdId() })">
+                        <i class="icon-notebook"></i>
+                        <span class="title">My Booking</span>
+                    </a>
+                </li>
+
+                <li class="@ViewBag.ActiveCart ">
+                    <a href="@Url.Action("Cart", "Booking", new { priceListId = 0 })">
+                        <i class="icon-basket"></i>
+                        <span class="title">My Charts</span>
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    function ModalUnderMaintaince() {
+        var data = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Oops</h4></div><div class='modal-body'><div class='row' style='text-align:center'><p>This section is under maintance. Please call admin<p></div></div><div class='modal-footer'></div></div></div>";
+        $('#myModal').html(data);
+        $('#myModal').modal();
+    }
+</script>

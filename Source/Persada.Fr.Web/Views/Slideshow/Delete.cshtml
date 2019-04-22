@@ -1,0 +1,66 @@
+﻿@model Persada.Fr.Model.GEMA_TM_SLIDESHOW
+
+@{
+    ViewBag.Title = "Delete Slideshow";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">@Model.TITTLE</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Content
+                    </dt>
+
+                    <dd>
+                        @Model.CONTENT_DESCRIPTION
+                    </dd>
+
+                    <dt>
+                        Class Item
+                    </dt>
+
+                    <dd>
+                        @Model.CLASS
+                    </dd>
+                    <dt>
+                        Url
+                    </dt>
+
+                    <dd>
+                        @Model.URL
+                    </dd>
+
+                    <dt>
+                        Photo
+                    </dt>
+
+                    <dd>
+                        <img src="@Model.PHOTO_PATH" class="img-medium" />
+                    </dd>
+
+                </dl>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm("ActionDelete", "Slideshow", new { id = Model.ID }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> 
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

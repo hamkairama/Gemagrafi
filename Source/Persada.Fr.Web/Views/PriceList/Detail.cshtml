@@ -1,0 +1,38 @@
+﻿@model Persada.Fr.Model.GEMA_TM_PRICEL_LIST
+@using Persada.Fr.CommonFunction;
+@{
+    ViewBag.Title = "Detail PriceList";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Type
+        </dt>
+
+        <dd>
+            @Model.TYPE
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Model.DESCRIPTION
+        </dd>
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @Model.PRICE
+    </dd>
+</dl>
+
+</div>
+

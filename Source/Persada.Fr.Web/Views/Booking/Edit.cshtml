@@ -1,0 +1,165 @@
+﻿@model Persada.Fr.Model.GEMA_TR_BOOKING
+@using Persada.Fr.CommonFunction
+
+@using (Html.BeginForm("ActionEdit", "Booking", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    int value = Model.STATUS;
+    EnumList.BookingStatus bookingStatus = (EnumList.BookingStatus)value;
+    string status = bookingStatus.ToString();
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>
+                            <h4 class="modal-title">@Model.TR_NUMBER - @status</h4>
+                        </div>
+                        <div class="tools">
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <section id="Header">
+                            <form action="http://keenthemes.com/preview/metronic/theme/admin_1/form_layouts.html#" class="form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group hidden">
+                                        <label class="col-md-3 control-label">Booking Param</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.STATUS, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Nama</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.GEMA_TM_USER.USER_NAME" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.GEMA_TM_USER.USER_MAIL" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Booking Type</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.GEMA_TR_BOOKING_DETAIL.FirstOrDefault().GEMA_TM_PRICEL_LIST.TYPE" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Payment Type</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.PAYMENT_TYPE" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Total</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.TOTAL_PAYMENT.ToString("###,###")" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Discount</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.DISCOUNT" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Grand Total</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" value="@Model.GRAND_TOTAL_PAYMENT.ToString("###,###")" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+
+                        <section id="Detail">
+                            <div class="table-scrollable">
+                                <table class="table table-striped table-bordered table-hover dt-responsive dataTable no-footer dtr-inline collapsed" width="100%" id="sample_3" cellspacing="0" role="grid" aria-describedby="sample_3_info" style="width: 100%;">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>
+                                                Booking Type
+                                            </th>
+                                            <th>
+                                                Booking Price
+                                            </th>
+                                            <th>
+                                                Start Time
+                                            </th>
+                                            <th>
+                                                End Time
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.GEMA_TR_BOOKING_DETAIL.ToList())
+                                        {
+                                            <tr role="row" class="odd">
+                                                <td>
+                                                    @item.GEMA_TM_PRICEL_LIST.TYPE
+                                                </td>
+                                                <td>
+                                                    @item.GEMA_TM_PRICEL_LIST.PRICE.ToString("###,###")
+                                                </td>
+                                                <td>
+                                                    @item.START_TIME
+                                                </td>
+                                                <td>
+                                                    @item.END_TIME
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @if (Model.STATUS == (int)EnumList.BookingStatus.Submitted)
+                        {
+                            <div>
+                                <img id="txtImage" src="data:image/png;base64," class="img-medium" style="display:none" />
+                                <input type="file" id="postedFile" name="postedFile" style="display:none" />
+                            </div>
+                            <div>
+                                <a href="#" id="btnBrowse" onclick="GetFile()" class="btn btn-sm btn-white btn-default btn-round">Browse</a>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div>
+                                <img id="txtImage" src="@Model.PAYMENT_IMAGE_PATH" class="img-medium" />
+                                <input type="file" id="postedFile" name="postedFile" style="display:none" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @if (Model.STATUS == (int)EnumList.BookingStatus.Submitted && Model.STATUS != (int)EnumList.BookingStatus.Rejected)
+                {
+                    <button type="submit" class="btn btn-primary left">Upload</button>
+                }
+                @if (CurrentUser.IsSa() && Model.STATUS == (int)EnumList.BookingStatus.Uploaded && Model.STATUS != (int)EnumList.BookingStatus.Rejected) 
+                {
+                    <button type="submit" class="btn btn-success">Complete</button>
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                }
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+}

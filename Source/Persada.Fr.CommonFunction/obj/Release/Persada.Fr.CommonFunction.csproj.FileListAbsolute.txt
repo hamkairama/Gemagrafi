@@ -1,0 +1,2 @@
+D:\Hamka\GitHub\JsonPersada\trunk\Persada.Fr.Web\Persada.Fr.CommonFunction\obj\Release\Persada.Fr.CommonFunction.csprojResolveAssemblyReference.cache
+D:\Hamka\GitHub\Gemagrafi\Persada.Fr.Web\Persada.Fr.CommonFunction\obj\Release\Persada.Fr.CommonFunction.csprojResolveAssemblyReference.cache

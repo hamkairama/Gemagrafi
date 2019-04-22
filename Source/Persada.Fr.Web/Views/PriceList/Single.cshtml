@@ -1,0 +1,155 @@
+﻿@model IEnumerable<Persada.Fr.Model.GEMA_TM_PRICEL_LIST>
+@using Persada.Fr.CommonFunction
+@using Persada.Fr.Model
+
+@{
+    ViewBag.Title = "PriceList";
+    ViewBag.ActivePriceListUser = "active";
+    ViewBag.SelectedPriceListUser = "selected";
+}
+
+@{
+    List<GEMA_TM_PRICEL_LIST> totalBooking = new List<GEMA_TM_PRICEL_LIST>();
+    if (HttpContext.Current.Session["GetPriceListBooking"] != null)
+    {
+        totalBooking = (List<GEMA_TM_PRICEL_LIST>)HttpContext.Current.Session["GetPriceListBooking"];
+    }
+    <div class="product">
+        <div class="container">
+            <div class="ctnt-bar cntnt">
+                <div class="content-bar">
+                    <div class="single-page">
+                        <div class="product-head">
+                            Spesial Price for this moment
+                        </div>
+                        <link href="~/Content/Gemagrafi/css/etalage.css" rel="stylesheet" />
+                        <script src="~/Content/Gemagrafi/js/jquery.etalage.min.js"></script>
+                        <script>
+                            jQuery(document).ready(function ($) {
+
+                                $('#etalage').etalage({
+                                    thumb_image_width: 400,
+                                    thumb_image_height: 400,
+                                    source_image_width: 800,
+                                    source_image_height: 1000,
+                                    show_hint: true,
+                                    click_callback: function (image_anchor, instance_id) {
+                                        alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="details-left-slider">
+                            <div class="grid images_3_of_2">
+                                <ul id="etalage">
+                                    <li>
+                                        <a href="optionallink.html">
+                                            <img class="etalage_thumb_image img-responsive" src="~/Content/Gemagrafi/images/m1.jpg" />
+                                            <img class="etalage_source_image img-responsive" src="~/Content/Gemagrafi/images/m1.jpg" title="" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <img class="etalage_thumb_image img-responsive" src="~/Content/Gemagrafi/images/m2.jpg" />
+                                        <img class="etalage_source_image img-responsive" src="~/Content/Gemagrafi/images/m2.jpg" title="" />
+                                    </li>
+                                    @if (Session["GetSosmedList"] != null)
+                                    {
+                                        foreach (GEMA_TM_SUB_CATEGORY item in (List<GEMA_TM_SUB_CATEGORY>)HttpContext.Current.Session["SubCategoryRandomList"])
+                                        {
+                                            <li>
+                                                <img class="etalage_thumb_image img-responsive" src="@item.IMAGE_PATH" />
+                                                <img class="etalage_source_image img-responsive" src="@item.IMAGE_PATH" title="" />
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="details-left-info">
+                            <h3>Spesial Independents Day</h3>
+                            <h4>Get 2 Hours free for book type 6H</h4>
+                            <h4></h4>
+                            <p><label>Rp.</label>150,000</p>
+                            @if (Session["USER_ID_ID"] == null)
+                            {
+                                <a class="button1" onclick="Modal('/User/Login/','','#myModal')" href="#" title="Login">
+                                    Book Now
+                                </a>
+                            }
+                            else if (Session["USER_ID_ID"] != null && totalBooking.Count() < 2)
+                            {
+                                <a class="button1" href="@Url.Action("Cart", "Booking", new { priceListId = 0 })"><span>Book Now</span></a>
+                            }
+                            else if (Session["USER_ID_ID"] != null && totalBooking.Count() == 2)
+                            {
+                                <a class="button1" onclick="ModalSearchError()" href="#">
+                                    Book Now
+                                </a>
+                            }
+                            <div class="subcategory-type">
+                            </div>
+                            <h5>Description  ::</h5>
+                            <p class="desc">
+                                The first mechanically-propelled, two-wheeled vehicle may have been built by Kirkpatrick MacMillan, a Scottish blacksmith, in 1839, although the claim is often disputed. He is also associated with the first recorded instance of a cycling traffic offense, when a Glasgow newspaper in 1842 reported an accident in which an anonymous "gentleman from Dumfries-shire... bestride a velocipede... of ingenious design" knocked over a little girl in Glasgow and was fined five
+                                The word bicycle first appeared in English print in The Daily News in 1868, to describe "Bysicles and trysicles" on the "Champs Elysées and Bois de Boulogne.
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-bottom2">
+                <h6>Related Products</h6>
+
+
+                @foreach (var item in Model)
+                {
+                    <div class="product">
+                        <div class="product-desc">
+                            <div class="product-img product-img2">
+                                <img src="@item.IMAGE_PATH" class="img-responsive " alt="" />
+                            </div>
+                            <div class="prod1-desc">
+                                <h5><a class="product_link" href="#">@item.TYPE</a></h5>
+                                <p class="product_descr">
+                                    @item.DESCRIPTION.<br />
+                                    Vivamus ante lorem, eleifend nec interdum non, ullamcorper et arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.eleifend nec interdum non, ullamcorper et arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                </p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="product_price">
+                            <span class="price-access">Rp. @item.PRICE.ToString("###,###")</span>
+                            @if (Session["USER_ID_ID"] == null)
+                            {
+                                <a class="button1" onclick="Modal('/User/Login/','','#myModal')" href="#" title="Login">
+                                    Book
+                                </a>
+                            }
+                            else if (Session["USER_ID_ID"] != null && totalBooking.Count() < 2)
+                            {
+                                <a class="button1" href="@Url.Action("Cart", "Booking", new { priceListId = item.ID })"><span>Book</span></a>
+                            }
+                            else if (Session["USER_ID_ID"] != null && totalBooking.Count() == 2)
+                            {
+                                <a class="button1" onclick="ModalSearchError()" href="#">
+                                    Book
+                                </a>
+                            }
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function ModalSearchError() {
+        var data = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Booking</h4></div><div class='modal-body'><div class='row' style='text-align:center'><p>2 booking in 1 transaction. Please completing booking for next booking.<p></div></div><div class='modal-footer'></div></div></div>";
+        $('#myModal').html(data);
+        $('#myModal').modal();
+    }
+</script>

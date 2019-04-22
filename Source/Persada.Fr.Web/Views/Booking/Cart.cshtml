@@ -1,0 +1,131 @@
+﻿@model Persada.Fr.Model.GEMA_TR_BOOKING
+@using Persada.Fr.Model;
+
+@{
+    ViewBag.Title = "Booking";
+    ViewBag.Cart = "active";
+}
+
+@{
+    List<GEMA_TM_PRICEL_LIST> totalBooking = new List<GEMA_TM_PRICEL_LIST>();
+    double totalBookingAmount = 0;
+    <div class="cart">
+        <div class="container">
+            <div class="cart-top">
+                <h5>My Carts</h5>
+            </div>
+
+            <div class="col-md-9 cart-items">
+
+                @if (Session["GetPriceListBooking"] != null)
+                {
+                    totalBooking = (List<GEMA_TM_PRICEL_LIST>)HttpContext.Current.Session["GetPriceListBooking"];
+                    int i = 1;
+                    foreach (GEMA_TM_PRICEL_LIST item in totalBooking)
+                    {
+                        <script>
+                            $(document).ready(function (c) {
+                                $('#dateTime' + @i).datetimepicker();
+
+                                $('.close' + @i).on('click', function (c) {
+                                    var typeX = document.getElementById(@i).innerHTML;
+                                    var priceX = document.getElementById("price" + @i).innerHTML;
+
+                                    var total = document.getElementById("total");
+                                    var totalFinal = document.getElementById("totalFinal");
+                                    
+                                    var totalResult = parseFloat(total.innerHTML.replace(/,/g, "")) - parseFloat(priceX.replace(/,/g, ""))
+                                    rs = $.xResponse(fullOrigin + '/Booking/DeleteCart/', {
+                                        type: typeX,
+                                    });
+
+                                    $('.cart-header' + '@i').fadeOut('slow', function (c) {
+                                        $('.cart-header' + '@i').remove();
+                                    });
+                                    total.innerHTML = totalResult;
+                                    totalFinal.innerHTML = totalResult;
+                                   
+                                });
+
+                            });
+                        </script>
+                        string cartHeader = "cart-header" + i;
+                        string close = "close" + i;
+                        string price = "price" + i;
+                        string dt = "dateTime" + i;
+                        string priceListId = "priceListId" + i;
+                        <div class="@cartHeader cartHeaderTop">
+                            <div class="@close"> </div>
+                            <div class="cart-sec">
+                                <div class="cart-item cyc">
+                                    <img src="@item.IMAGE_PATH" />
+                                </div>
+                                <div class="cart-item-info">
+                                    <h3><span id="@i">@item.TYPE</span><span>premium class @item.TYPE</span> <span id="@priceListId">@item.ID</span></h3>
+                                    <h4><span>Rs. </span> <span id="@price">@item.PRICE.ToString("###,###")</span></h4>
+                                    @*<p class="qty">Qty ::</p>*@
+                                    <p>Please select the date : <input id="@dt" class="form-control fileinput-inline"></p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="delivery">
+                                    <p>Fix price</p>
+                                    <span>Term and policy availabel</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        totalBookingAmount = totalBookingAmount + item.PRICE;
+                        i += 1;
+                    }
+                }
+            </div>
+
+            <div class="col-md-3 cart-total">
+                @if (totalBooking.Count() < 2)
+                {
+                    <a class="continue" href="@Url.Action("Single","Pricelist")">Continue to booking</a>
+                }
+                else
+                {
+                    <a class="continue" onclick="ModalShow()" href="#">
+                        Continue to booking
+                    </a>
+                    <script>
+                        function ModalShow() {
+                            var data = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Booking</h4></div><div class='modal-body'><div class='row'><p>2 booking in 1 transaction. Please completing booking for next booking.<p></div></div><div class='modal-footer'></div></div></div>";
+                            $('#myModal').html(data);
+                            $('#myModal').modal();
+                        }
+                    </script>
+                }
+                <div class="price-details">
+                    <h3>Price Details</h3>
+                    <span>Total</span>
+                    <span class="total" id="total">@totalBookingAmount.ToString("###,###")</span>
+                    <span>Discount</span>
+                    <span class="total">---</span>
+                    <span>Others</span>
+                    <span class="total">---</span>
+                    <div class="clearfix"></div>
+                </div>
+                <h4 class="last-price">TOTAL</h4>
+                <span class="total final" id="totalFinal">@totalBookingAmount.ToString("###,###")</span>
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("paymentType", (IEnumerable<SelectListItem>)ViewBag.GetPaymentType, new { @class = "form-control" })
+                    </div>
+                </div>
+                <a class="order" href="#" onclick="Calculate()" >Submit Booking</a>
+                <div class="total-item">
+                    <h3>OPTIONS</h3>
+                    <h4>COUPONS</h4>
+                    <a class="cpns" href="#">Apply Coupons</a>
+                    <p>Coupon not available for this transaction</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/Controller/CartController.js"></script>

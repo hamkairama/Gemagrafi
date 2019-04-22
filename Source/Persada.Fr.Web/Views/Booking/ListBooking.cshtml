@@ -1,0 +1,203 @@
+﻿@model IEnumerable<Persada.Fr.Model.GEMA_TR_BOOKING>
+@using Persada.Fr.CommonFunction
+
+@{
+    if (ViewBag.flag == "ALL")
+    {
+        ViewBag.Title = "All Booking";
+        ViewBag.ActiveAllBooking = "open active";
+        ViewBag.BreadcrumbSubMenu = "All Booking > ";
+    }
+    else
+    {
+        ViewBag.Title = "My Booking";
+        ViewBag.ActiveMyBooking = "open active";
+        ViewBag.BreadcrumbSubMenu = "My Booking > ";
+    }
+
+    ViewBag.BreadcrumbMenu = "Booking > ";
+
+}
+
+@if (ViewBag.msgSuccess != null)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" type="button" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </a>
+
+        <strong>
+            <i class="ace-icon fa fa-check"></i>
+        </strong>
+        @ViewBag.msgSuccess
+        <br>
+    </div>
+}
+
+@if (ViewBag.msgError != null)
+{
+    <div class="alert alert-danger">
+        <a href="#" class="close" type="button" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </a>
+        <strong>
+            <i class="ace-icon fa fa-times"></i>
+        </strong>
+        @ViewBag.msgError
+        <br>
+    </div>
+}
+
+
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-globe"></i>All Booking
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="dt-buttons">
+                        <a class="dt-button buttons-print btn default" tabindex="0" aria-controls="sample_3" href="#">
+                            <span>Print</span>
+                        </a>
+                        <a class="dt-button buttons-pdf buttons-html5 btn default" tabindex="0" aria-controls="sample_3" href="#">
+                            <span>PDF</span>
+                        </a>
+                        <a class="dt-button buttons-csv buttons-html5 btn default" tabindex="0" aria-controls="sample_3" href="#">
+                            <span>CSV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="dataTables_length" id="sample_3_length">
+                        <label>
+                            <select name="sample_3_length" aria-controls="sample_3" class="form-control input-sm input-xsmall input-inline">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="-1">All</option>
+                            </select> entries
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div id="sample_3_filter" class="dataTables_filter">
+                        <label>Search:<input type="search" class="form-control input-sm input-small input-inline" placeholder="" aria-controls="sample_3"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="table-scrollable">
+                <table class="table table-striped table-bordered table-hover dt-responsive dataTable no-footer dtr-inline collapsed" width="100%" id="sample_3" cellspacing="0" role="grid" aria-describedby="sample_3_info" style="width: 100%;">
+                    <thead>
+                        <tr role="row">
+                            <th class="hidden">
+                                User Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Booking Created
+                            </th>
+                            <th>
+                                Payment Type
+                            </th>
+                            <th>
+                                Total Payment
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            int value = item.STATUS;
+                            EnumList.BookingStatus bookingStatus = (EnumList.BookingStatus)value;
+                            string status = bookingStatus.ToString();
+
+                            <tr role="row" class="odd">
+                                <td class="hidden">
+                                    @item.USER_ID_ID
+                                </td>
+                                <td>
+                                    @item.GEMA_TM_USER.USER_NAME
+                                </td>
+                                <td>
+                                    @item.GEMA_TM_USER.USER_MAIL
+                                </td>
+                                <td>
+                                    @item.CREATED_TIME
+                                </td>
+                                <td>
+                                    @item.PAYMENT_TYPE
+                                </td>
+                                <td>
+                                    @item.GRAND_TOTAL_PAYMENT.ToString("###,###")
+                                </td>
+                                <td>
+                                    @status
+                                </td>
+                                <td>
+                                    <a class="btn btn-xs btn-warning" onclick="Modal('/Booking/Detail/','@item.ID','#myModal')" href="#" title="Detail">
+                                        @Html.Raw(Labels.IconAction("Detail"))
+                                    </a>
+                                    <a class="btn btn-xs btn-primary" onclick="Modal('/Booking/Edit/','@item.ID','#myModal')" href="#" title="Edit">
+                                        @if (item.STATUS == (int)EnumList.BookingStatus.Submitted)
+                                        {
+                                            @Html.Raw(Labels.IconAction("Edit"))
+                                        }
+                                        else if (item.STATUS == (int)EnumList.BookingStatus.Completed)
+                                        {
+                                            @Html.Raw(Labels.IconAction("Success"))
+                                        }
+                                        else if (item.STATUS == (int)EnumList.BookingStatus.Rejected)
+                                        {
+                                            @Html.Raw(Labels.IconAction("Reject"))
+                                        }
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-sm-12">
+                    <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                </div>
+                <div class="col-md-7 col-sm-12">
+                    <div class="dataTables_paginate paging_bootstrap_number" id="sample_3_paginate">
+                        <ul class="pagination" style="visibility: visible;">
+                            <li class="prev disabled">
+                                <a href="#" title="Prev">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

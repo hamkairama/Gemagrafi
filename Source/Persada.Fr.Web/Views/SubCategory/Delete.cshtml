@@ -1,0 +1,53 @@
+﻿@model Persada.Fr.Model.GEMA_TM_SUB_CATEGORY
+
+@{
+    ViewBag.Title = "Delete SubCategory";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Category
+        </dt>
+        <dd>
+            @Model.GEMA_TM_CATEGORY.CATEGORY_NAME
+        </dd>
+
+       
+        <dt>
+            SubCategory
+        </dt>
+
+        <dd>
+            @Model.SUB_CATEGORY_NAME
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Model.DESCRIPTION
+        </dd>
+        
+
+        <dd>
+            <img src="@Model.IMAGE_PATH" class="img-medium" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("ActionDelete", "SubCategory", new { id = Model.ID }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

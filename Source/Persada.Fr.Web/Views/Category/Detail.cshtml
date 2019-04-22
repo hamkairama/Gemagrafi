@@ -1,0 +1,68 @@
+﻿@model Persada.Fr.Model.GEMA_TM_CATEGORY
+@using Persada.Fr.CommonFunction;
+@{
+    ViewBag.Title = "Detail Category";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Category Name
+        </dt>
+
+        <dd>
+            @Model.CATEGORY_NAME
+        </dd>
+
+        <dt>
+            Category Description
+        </dt>
+
+        <dd>
+            @Model.DESCRIPTION
+        </dd>
+        @{
+            if (CurrentUser.IsSa())
+            {
+
+                <dt>
+                    Url
+                </dt>
+
+                <dd>
+                    @Model.URL
+                </dd>
+
+                <dt>
+                    Class
+                </dt>
+
+                <dd>
+                    @Model.CLASS
+                </dd>
+            }
+        }
+    </dl>
+
+    <hr />
+    <div class="col-md-12">
+        @{
+            foreach (var item in Model.GEMA_TM_SUB_CATEGORY)
+            {
+                <a href="#"><img src="@item.IMAGE_PATH" class="img-medium img-overflow" onclick="Modal('/SubCategory/Detail/','@item.ID','#myModal')" /></a>
+            }
+
+            if (CurrentUser.IsSa())
+            {
+                <div class="form-actions no-color">
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
+        }
+    </div>
+</div>
+
